@@ -7,6 +7,9 @@ import org.apache.commons.lang3.StringUtils;
 public class OrderValidator {
 
     public void validateOrder(Order order) throws OrderNotValidException {
+        if(order==null){
+            throw new OrderNotValidException(order, "order can't be null");
+        }
         if (order.getOrderType() == null) {
             throw new OrderNotValidException(order, "orderType can't be null");
         }

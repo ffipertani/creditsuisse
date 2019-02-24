@@ -23,7 +23,7 @@ public class LiveOrderClient {
         liveOrderService.addOrder(order);
     }
 
-    public void cancelOrder(Order order) throws OrderNotFoundException {
+    public void cancelOrder(Order order) throws OrderNotFoundException, OrderNotValidException {
         liveOrderService.cancelOrder(order);
     }
 

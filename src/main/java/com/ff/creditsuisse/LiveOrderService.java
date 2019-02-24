@@ -38,8 +38,9 @@ public class LiveOrderService {
         }
     }
 
-    public void cancelOrder(Order order) throws OrderNotFoundException {
+    public void cancelOrder(Order order) throws OrderNotFoundException, OrderNotValidException {
         log.info("Cancelling an order {}", order);
+        orderValidator.validateOrder(order);
         if (order.getOrderType() == OrderType.BUY) {
             buyDataStore.delete(order);
         } else {

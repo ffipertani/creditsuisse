@@ -36,12 +36,12 @@ public class LiveOrderClientTest {
     @Test
     public void shouldGetPrices() {
         List<OrderSummary> expected = new ArrayList<>();
-        expected.add(new OrderSummary(400d,200,BUY));
-        expected.add(new OrderSummary(200,100,BUY));
-        expected.add(new OrderSummary(100,300,BUY));
-        expected.add(new OrderSummary(100,300,SELL));
-        expected.add(new OrderSummary(200,100,SELL));
-        expected.add(new OrderSummary(400,200,SELL));
+        expected.add(new OrderSummary(400d, 200, BUY));
+        expected.add(new OrderSummary(200, 100, BUY));
+        expected.add(new OrderSummary(100, 300, BUY));
+        expected.add(new OrderSummary(100, 300, SELL));
+        expected.add(new OrderSummary(200, 100, SELL));
+        expected.add(new OrderSummary(400, 200, SELL));
 
         List<OrderSummary> result = liveOrderClient.liveOrders();
 
@@ -49,16 +49,16 @@ public class LiveOrderClientTest {
     }
 
     @Test
-    public void shouldCancelAnOrder() throws OrderNotFoundException {
+    public void shouldCancelAnOrder() throws OrderNotFoundException, OrderNotValidException {
         List<OrderSummary> expected = new ArrayList<>();
-        expected.add(new OrderSummary(400d,200,BUY));
-        expected.add(new OrderSummary(200,100,BUY));
-        expected.add(new OrderSummary(100,100,BUY));
-        expected.add(new OrderSummary(100,300,SELL));
-        expected.add(new OrderSummary(200,100,SELL));
+        expected.add(new OrderSummary(400d, 200, BUY));
+        expected.add(new OrderSummary(200, 100, BUY));
+        expected.add(new OrderSummary(100, 100, BUY));
+        expected.add(new OrderSummary(100, 300, SELL));
+        expected.add(new OrderSummary(200, 100, SELL));
 
         liveOrderClient.cancelOrder(new Order("user3", 200, 100, BUY));
-        liveOrderClient.cancelOrder( new Order("user1", 200, 400, SELL));
+        liveOrderClient.cancelOrder(new Order("user1", 200, 400, SELL));
 
         List<OrderSummary> result = liveOrderClient.liveOrders();
 

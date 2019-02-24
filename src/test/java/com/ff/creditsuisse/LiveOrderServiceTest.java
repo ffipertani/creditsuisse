@@ -44,7 +44,7 @@ public class LiveOrderServiceTest {
     }
 
     @Test
-    public void shouldValidateAnOrder() throws OrderNotValidException {
+    public void shouldValidateAnOrderWhileInserting() throws OrderNotValidException {
         LiveOrderService liveOrderService = new LiveOrderService(sellDataStore, buyDataStore, orderValidator);
         Order order = new Order("user1", 10, 20, BUY);
 
@@ -78,7 +78,17 @@ public class LiveOrderServiceTest {
     }
 
     @Test
-    public void shouldCancelABuyOrder() throws OrderNotFoundException {
+    public void shouldValidateAnOrderWhileCancelling() throws OrderNotValidException, OrderNotFoundException {
+        LiveOrderService liveOrderService = new LiveOrderService(sellDataStore, buyDataStore, orderValidator);
+        Order order = new Order("user1", 10, 20, BUY);
+
+        liveOrderService.cancelOrder(order);
+
+        verify(orderValidator, times(1)).validateOrder(order);
+    }
+
+    @Test
+    public void shouldCancelABuyOrder() throws OrderNotFoundException, OrderNotValidException {
         LiveOrderService liveOrderService = new LiveOrderService(sellDataStore, buyDataStore, orderValidator);
         Order order = new Order("user1", 10, 20, BUY);
 
@@ -89,7 +99,7 @@ public class LiveOrderServiceTest {
     }
 
     @Test
-    public void shouldCancelASellOrder() throws OrderNotFoundException {
+    public void shouldCancelASellOrder() throws OrderNotFoundException, OrderNotValidException {
         LiveOrderService liveOrderService = new LiveOrderService(sellDataStore, buyDataStore, orderValidator);
         Order order = new Order("user1", 10, 20, SELL);
 
